@@ -27,8 +27,6 @@ var api = new ParseServer({
 
 var app = express();
 
-
-// app.use(mountPath, api);
 app.use(apiPath, api);
 
 
