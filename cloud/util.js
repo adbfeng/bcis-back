@@ -37,5 +37,5 @@ function post(obj) {
 
 module.exports = {
     get: get,
-    post: post()
+    post: post
 }
