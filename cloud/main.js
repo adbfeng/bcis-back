@@ -1,4 +1,4 @@
-import axios from 'axios'
+var axios = require('axios')
 
 Parse.Cloud.define('hello', function(req, res) {
     res.success('Hello World')
