@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+Parse.Cloud.define('hello', function(req, res) {
+    res.success('Hello World')
+
+});
+
 Parse.Cloud.define('sendVerifySMS', function(req, res) {
     let phone = req.params.phone
     axios({
@@ -17,7 +22,7 @@ Parse.Cloud.define('sendVerifySMS', function(req, res) {
     }).then((result) => {
       res.success(result)
     }).catch((err) =>  {
-        response.error(err);
+        res.error(err);
     });
 });
 
@@ -38,6 +43,6 @@ Parse.Cloud.define('sendVerifySMS', function(req, res) {
     }).then((result) => {
         res.success(result)
     }).catch((err) =>  {
-        response.error(err);
+        res.error(err);
     });
 });
