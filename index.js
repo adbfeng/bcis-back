@@ -14,6 +14,7 @@ var password = process.env.PASSWORD || 'pass'
 var apiPath = process.env.PARSE_MOUNT || '/api';
 var allowInsecureHTTP = process.env.ALLOW_INSECURE_HTTP || true
 var appName = process.env.APP_NAME || "MyApp"
+require('dotenv').config()
 
 
 var api = new ParseServer({

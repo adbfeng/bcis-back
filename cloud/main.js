@@ -1,19 +1,8 @@
-var axios = require('axios')
-
-Parse.Cloud.define('hello', function(req, res) {
-    res.success('Hello World')
-
-});
+const { get, post } =  require('./util')
 
 Parse.Cloud.define('sendVerifySMS', function(req, res) {
-    console.log(req.params)
     var phone = req.params.phone
-    console.log(phone)
-    console.log(process.env.BMOB_APP_ID)
-    console.log(process.env.BMOB_API_KEY)
-
-    axios({
-        method: 'post',
+    post({
         url: 'https://api.bmob.cn/1/requestSmsCode',
         data: {
             mobilePhoneNumber: phone,
@@ -25,7 +14,6 @@ Parse.Cloud.define('sendVerifySMS', function(req, res) {
             'Content-Type': 'application/json'
         }
     }).then((result) => {
-        console.log(result)
         res.success(result)
     }).catch((err) =>  {
         res.error(err);
@@ -35,8 +23,7 @@ Parse.Cloud.define('sendVerifySMS', function(req, res) {
 Parse.Cloud.define('verifySMS', function(req, res) {
     let phone = req.params.phone
     let code = req.params.code
-    axios({
-        method: 'post',
+    post({
         url: 'https://api.bmob.cn/1/verifySmsCode/' + code,
         data: {
             mobilePhoneNumber: phone
