@@ -35,7 +35,26 @@ function post(obj) {
     })
 }
 
+function postWithoutJson(obj) {
+    return new Promise((resolve, reject) => {
+        request({
+            method:"POST",
+            uri: obj.url,
+            headers: obj.headers,
+            body: obj.data
+        },function (err,response,body) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(body)
+            }
+        })
+    })
+}
+
+
 module.exports = {
     get: get,
-    post: post
+    post: post,
+    postWithoutJson: postWithoutJson
 }
