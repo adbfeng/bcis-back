@@ -1,7 +1,7 @@
 var request = require('request')
 var Promise = require('promise')
 
-function get() {
+function get(obj) {
     return new Promise((resolve, reject) => {
         request({
             method:"GET",
