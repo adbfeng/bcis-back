@@ -23,7 +23,7 @@ Parse.Cloud.define('verifySMS', function(req, res) {
 Parse.Cloud.define('sendSMS', function(req, res) {
     let phone = req.params.phone
     let content = req.params.content
-    send(phone, content).then((result) => {
+    sendSMS(phone, content).then((result) => {
         res.success(result)
     }).catch((err) =>  {
         res.error(err);

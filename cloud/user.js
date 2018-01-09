@@ -30,17 +30,12 @@ function verifySMS(phone, code) {
 }
 
 function sendSMS(phone, content) {
-    return post({
-        url: 'https://api.bmob.cn/1/requestSms',
+    return get({
+        url: 'https://way.jd.com/chuangxin/dxjk',
         data: {
-            mobilePhoneNumber: phone,
+            mobile: phone,
             content: content,
-            template: 'szamigo'
-        },
-        headers: {
-            'X-Bmob-Application-Id': process.env.BMOB_APP_ID,
-            'X-Bmob-REST-API-Key': process.env.BMOB_API_KEY,
-            'Content-Type': 'application/json'
+            appkey: process.env.SMS_KEY
         }
     })
 }
