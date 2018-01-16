@@ -11,6 +11,18 @@ function login(username, password) {
   })
 }
 
+function getTeacher() {
+  return get({
+    url: 'https://api.bmob.cn/1/classes/_User',
+    data: {
+      limit: 1000,
+      where: '{"role":1}'
+    },
+    headers: header
+  })
+}
+
 module.exports = {
-  login: login
+  login: login,
+  getTeacher: getTeacher
 }

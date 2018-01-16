@@ -1,4 +1,4 @@
-const { get, post } =  require('../util/http')
+const { get, post, put } =  require('../util/http')
 const { header } = require('../util/config')
 function getCurrent() {
   return get({
@@ -10,7 +10,15 @@ function getCurrent() {
     headers: header
   })
 }
+function update(id, obj) {
+  return put({
+    url: 'https://api.bmob.cn/1/classes/ASA_Control/' + id,
+    data: JSON.stringify(obj),
+    headers: header
+  })
+}
 
 module.exports = {
-  getCurrent: getCurrent
+  getCurrent: getCurrent,
+  update: update
 }

@@ -21,6 +21,14 @@ Parse.Cloud.define('getAllCourses', function(req, res) {
   });
 });
 
+
+Parse.Cloud.define('updateControl', function(req, res) {
+  control.update(req.params.id, req.params.obj).then((result) => {
+    res.success(result)
+  }).catch((err) => {
+    res.error(err)
+  })
+});
 Parse.Cloud.define('updateASA', function(req, res) {
   asa.update(req.params.id, req.params.obj).then((result) => {
     res.success(result)
@@ -28,7 +36,21 @@ Parse.Cloud.define('updateASA', function(req, res) {
     res.error(err)
   })
 });
+Parse.Cloud.define('addASA', function(req, res) {
+  asa.add(req.params.obj).then((result) => {
+    res.success(result)
+  }).catch((err) => {
+    res.error(err)
+  })
+});
 
+Parse.Cloud.define('removeASA', function(req, res) {
+  asa.wipe(req.params.id).then((result) => {
+    res.success(result)
+  }).catch((err) => {
+    res.error(err)
+  })
+});
 Parse.Cloud.define('downloadStudentCourse', function (req, res) {
   var params = req.params
   console.log(params)
@@ -53,7 +75,7 @@ Parse.Cloud.define('downloadCourse', function (req, res) {
   asa.getCourseFile().then((str)=>{
     return mail.sendMailWithFile(email,subject,body,filename,str)
   }).then((ress)=>{
-    res.send(ress)
+    res.success(ress)
   })
 })
 
@@ -82,6 +104,14 @@ Parse.Cloud.define('login', function(req, res) {
   let password = req.params.password
   user.login(username, password).then((result) => {
     res.success(result)
+  }).catch((err) =>  {
+    res.error(err)
+  });
+});
+
+Parse.Cloud.define('getTeacher', function(req, res) {
+  user.getTeacher().then((result) => {
+    res.success(JSON.parse(result).results)
   }).catch((err) =>  {
     res.error(err)
   });

@@ -1,4 +1,4 @@
-const { get, post, put } =  require('../util/http')
+const { get, post, put,remove } =  require('../util/http')
 const { header } = require('../util/config')
 const { getCurrent } = require('./control')
 
@@ -25,6 +25,22 @@ function update(id, obj) {
   return put({
     url: 'https://api.bmob.cn/1/classes/ASA_Course/' + id,
     data: JSON.stringify(obj),
+    headers: header
+  })
+}
+
+function add(obj) {
+  return post({
+    url: 'https://api.bmob.cn/1/classes/ASA_Course/',
+    data: obj,
+    headers: header
+  })
+}
+
+
+function wipe(id) {
+  return remove({
+    url: 'https://api.bmob.cn/1/classes/ASA_Course/' + id,
     headers: header
   })
 }
@@ -170,6 +186,8 @@ function getStudentCourseFile() {
 module.exports = {
   getAll: getAll,
   update: update,
+  add:add,
+  wipe: wipe,
   getStudentCourseFile:getStudentCourseFile,
   getCourseFile: getCourseFile
 }

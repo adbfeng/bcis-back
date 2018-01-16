@@ -17,6 +17,21 @@ function get(obj) {
     })
   })
 }
+function remove(obj) {
+  return new Promise((resolve, reject) => {
+    request({
+      method:"DELETE",
+      uri: obj.url,
+      headers: obj.headers,
+    },function (err,response,body) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(body)
+      }
+    })
+  })
+}
 function put(obj) {
   console.log(obj)
   return new Promise((resolve, reject) => {
@@ -46,7 +61,7 @@ function post(obj) {
       if (err) {
         reject(err)
       } else {
-        resolve(JSON.parse(body))
+        resolve(body)
       }
     })
   })
@@ -63,7 +78,7 @@ function postWithoutJson(obj) {
       if (err) {
         reject(err)
       } else {
-        resolve(JSON.parse(body))
+        resolve(body)
       }
     })
   })
@@ -74,5 +89,6 @@ module.exports = {
   get: get,
   post: post,
   put: put,
+  remove: remove,
   postWithoutJson: postWithoutJson
 }
