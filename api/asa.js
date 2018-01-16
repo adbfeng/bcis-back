@@ -20,6 +20,7 @@ function getAll() {
   })
 }
 
+
 function update(id, obj) {
   return put({
     url: 'https://api.bmob.cn/1/classes/ASA_Course/' + id,
