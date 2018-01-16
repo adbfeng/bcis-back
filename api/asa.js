@@ -13,7 +13,7 @@ function getAll() {
       data: {
         limit: 1000,
         include: 'teacher',
-        where: '{"session":{"__type":"Pointer","className":"ASA_Control","objectId":"'+ res.results[0].objectId +'"}}'
+        where: '{"session":{"__type":"Pointer","className":"ASA_Control","objectId":"'+ JSON.parse(res).results[0].objectId +'"}}'
       },
       headers: header
     })
@@ -35,22 +35,24 @@ function getAllStudent() {
       data:{
         order:'-updatedAt',
         limit:1000,
-        where:'{"session":{"__type":"Pointer","className":"ASA_Control","objectId":"' + res.results[0].objectId + '"}}'
+        where:'{"session":{"__type":"Pointer","className":"ASA_Control","objectId":"' + JSON.parse(res).results[0].objectId + '"}}'
       },
       headers: header
     })
-  }).then((records)=>{
+  }).then((res)=>{
+    let records = JSON.parse(res).results
     for (let i in records){
 
       sleep(200 * i).then(()=>{
         return get({
           url: 'https://api.bmob.cn/1/classes/ASA_Course',
           data:{
-            where:'{"$relatedTo":{"object":{"__type":"Pointer","className":"ASA_Course_Record","objectId":"' + records.results[i].objectId + '"},"key":"courses"}}'
+            where:'{"$relatedTo":{"object":{"__type":"Pointer","className":"ASA_Course_Record","objectId":"' + records[i].objectId + '"},"key":"courses"}}'
           },
           headers: header
         })
-      }).then((courses)=>{
+      }).then((res)=>{
+        let courses = JSON.parse(res).results
         records[i].courses = courses
 
         if (typeof records[i].payment_info != "undefined") {
@@ -82,7 +84,7 @@ function getCourseFile() {
     var rows = []
     rows.push('title,max,fee,teacher,grade,monday,tuesday,wednesday,thursday,description')
 
-    for (let record of res.results) {
+    for (let record of JSON.parse(res).results) {
       var str_arr = ['','','','','','','','','','']
 
       str_arr[0] = record.title

@@ -12,7 +12,7 @@ function get(obj) {
       if (err) {
         reject(err)
       } else {
-        resolve(JSON.parse(body))
+        resolve(body)
       }
     })
   })
@@ -29,7 +29,7 @@ function put(obj) {
       if (err) {
         reject(err)
       } else {
-        resolve(JSON.parse(body))
+        resolve(body)
       }
     })
   })

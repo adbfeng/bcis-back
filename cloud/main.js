@@ -5,7 +5,7 @@ const pay = require('../api/pay')
 const sms = require('../api/sms')
 Parse.Cloud.define('getAllCourses', function(req, res) {
   asa.getAll().then((result) => {
-    res.success(result.results)
+    res.success(JSON.parse(result).results)
   }).catch((err) =>  {
     res.error(err)
   });
@@ -13,7 +13,7 @@ Parse.Cloud.define('getAllCourses', function(req, res) {
 
 Parse.Cloud.define('updateASA', function(req, res) {
   asa.update(req.params.id, req.params.obj).then((result) => {
-    res.success(result.results)
+    res.success(result)
   }).catch((err) => {
     res.error(err)
   })
@@ -61,8 +61,7 @@ Parse.Cloud.define('sendMail', function (req, res) {
 
 Parse.Cloud.define('downloadPay', function (req, res) {
   pay.getPayment().then((str)=>{
-    mail.sendMailWithFile('ireneou@bcis.net.cn',"付款信息",'付款信息','pay_info.csv',str)
-    return mail.sendMailWithFile('jaygao@bcis.net.cn',"付款信息",'付款信息','pay_info.csv',str)
+    return mail.sendMailWithFile(req.params.email,"付款信息",'付款信息','pay_info.csv',str)
   }).then((ress)=>{
     res.success(ress)
   })

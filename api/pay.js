@@ -29,10 +29,11 @@ function getPayment() {
     },
     headers: header
   }).then((res) => {
+    let result = JSON.parse(res).results
     var rows = []
     rows.push('中文名,英文名,商户订单号,微信订单号,商品名称,交易状态,总金额,退款金额,手续费,提现金额')
 
-    var current_day = res[0].date.substr(0,10)
+    var current_day = result[0].date.substr(0,10)
     var current_num = 0
     var current_total_fee = 0
     var current_commission_fee = 0
@@ -40,7 +41,7 @@ function getPayment() {
 
     rows.push([current_day,'','','','','','','','',''].join(','))
 
-    for (let record of res) {
+    for (let record of result) {
       var str_arr = ['','','','','','','','','','']
 
       if (record.date.substr(0,10) != current_day) {
@@ -96,7 +97,7 @@ function getPaymentWithNo(out_trade_no) {
     },
     headers: header
   }).then((res) => {
-    return Promise.resolve(res.results)
+    return Promise.resolve(JSON.parse(res).results)
   })
 }
 function isConfirmedPaymentExist(arr) {
@@ -107,8 +108,8 @@ function isConfirmedPaymentExist(arr) {
     },
     headers: header
   }).then((res) => {
-    if (res.results.length > 0) {
-      for (let record of res.results) {
+    if (JSON.parse(res).results.length > 0) {
+      for (let record of JSON.parse(res).results) {
         if (arr[9] == record.trade_state) {
           return Promise.resolve(true)
         }
