@@ -1,8 +1,18 @@
 const asa = require('../api/asa')
 const user = require('../api/user')
+const control = require('../api/control')
 const mail = require('../util/mail')
 const pay = require('../api/pay')
 const sms = require('../api/sms')
+
+Parse.Cloud.define('getCurrentControl', function(req, res) {
+  control.getCurrent().then((result) => {
+    res.success(JSON.parse(result).results[0])
+  }).catch((err) =>  {
+    res.error(err)
+  });
+});
+
 Parse.Cloud.define('getAllCourses', function(req, res) {
   asa.getAll().then((result) => {
     res.success(JSON.parse(result).results)
