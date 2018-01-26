@@ -99,7 +99,7 @@ function getAllStudent() {
 function getCourseFile() {
   return getAll().then((res)=>{
     var rows = []
-    rows.push('title,max,fee,teacher,grade,monday,tuesday,wednesday,thursday,description')
+    rows.push('title,max,fee, teacher,grade,monday,tuesday,wednesday,thursday,description, classroom')
 
     for (let record of JSON.parse(res).results) {
       var str_arr = ['','','','','','','','','','']
@@ -125,6 +125,7 @@ function getCourseFile() {
         str_arr[8] = 'O'
       }
       str_arr[9] = JSON.stringify(record.description)
+      str_arr[10] = record.room
 
       var str = str_arr.join(',')
 
