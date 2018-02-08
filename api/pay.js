@@ -2,12 +2,16 @@ const { get, post, put, postWithoutJson } =  require('../util/http')
 const { header } = require('../util/config')
 const { getCurrent } = require('./control')
 
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 var crypto = require('crypto')
 var js2xmlparser = require("js2xmlparser");
 var appid = process.env.appid
 var mch_id = process.env.mch_id
 var pay_key = process.env.pay_key
-
+var request = require('request')
 function randomString(len) {
   len = len || 32;
   var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
@@ -76,7 +80,6 @@ function getPayment() {
       str_arr[9] = record.actual_fee
 
       var str = str_arr.join(',')
-
       rows.push(str)
     }
 
@@ -162,6 +165,7 @@ function refreshPaymentData(bill_date) {
       }
     })
   }).then((body)=>{
+    console.log(body)
     //get raw data
     var raw_arr = body.split('\r\n')
     var data_arr = raw_arr.slice(1,raw_arr.length - 3)
@@ -216,11 +220,10 @@ function refreshPaymentData(bill_date) {
       })
     }
   },(err)=>{
-
+    console.log(err)
   })
-
 }
-
 module.exports = {
-  getPayment:getPayment
+  getPayment:getPayment,
+  refreshPaymentData:refreshPaymentData
 }

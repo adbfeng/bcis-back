@@ -99,6 +99,12 @@ Parse.Cloud.define('downloadPay', function (req, res) {
   })
 })
 
+Parse.Cloud.define('refreshPay', function (req, res) {
+  console.log('refreshPay')
+  pay.refreshPaymentData()
+})
+
+
 Parse.Cloud.define('login', function(req, res) {
   let username = req.params.username
   let password = req.params.password

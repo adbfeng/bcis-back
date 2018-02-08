@@ -4,6 +4,7 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
+var schedule = require('node-schedule');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var serverUrl = process.env.SERVER_URL || 'http://localhost:1337/api'
@@ -15,7 +16,7 @@ var apiPath = process.env.PARSE_MOUNT || '/api';
 var allowInsecureHTTP = process.env.ALLOW_INSECURE_HTTP || true
 var appName = process.env.APP_NAME || "MyApp"
 require('dotenv').config()
-
+var pay = require('./api/pay')
 
 var api = new ParseServer({
   databaseURI: (databaseUri || 'mongodb://localhost:27017/') + appId ,
@@ -64,5 +65,10 @@ var httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
 });
+
+schedule.scheduleJob('59 12 * * *', () => {
+  pay.refreshPaymentData(20180105)
+}) // run everyday at midnight
+
 
 
