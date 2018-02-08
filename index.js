@@ -67,7 +67,7 @@ httpServer.listen(port, function() {
 });
 
 schedule.scheduleJob('59 12 * * *', () => {
-  pay.refreshPaymentData(20180105)
+  pay.refreshPaymentData()
 }) // run everyday at midnight
 
 
