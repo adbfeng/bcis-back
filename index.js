@@ -6,12 +6,12 @@ var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 var schedule = require('node-schedule');
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+var databaseUri = process.env.DATABASE_URI || 'mongodb://localhost:27017'
 var serverUrl = process.env.SERVER_URL || 'http://localhost:1337/api'
 var appId = process.env.APP_ID || 'myAppId'
 var masterKey = process.env.MASTER_KEY || 'myMasterKey'//Add your master key here. Keep it secret!
-var user = process.env.USERNAME || 'user1'
-var password = process.env.PASSWORD || 'pass'
+var user = process.env.USERNAME || 'user12'
+var password = process.env.PASSWORD || 'pass2'
 var apiPath = process.env.PARSE_MOUNT || '/api';
 var allowInsecureHTTP = process.env.ALLOW_INSECURE_HTTP || true
 var appName = process.env.APP_NAME || "MyApp"
@@ -19,7 +19,7 @@ require('dotenv').config()
 var pay = require('./api/pay')
 
 var api = new ParseServer({
-  databaseURI: (databaseUri || 'mongodb://localhost:27017/') + appId ,
+  databaseURI: (databaseUri || 'mongodb://localhost:27017/') ,
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: appId,
   masterKey: masterKey, //Add your master key here. Keep it secret!
