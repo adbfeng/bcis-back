@@ -19,7 +19,7 @@ require('dotenv').config()
 var pay = require('./api/pay')
 
 var api = new ParseServer({
-  databaseURI: (databaseUri || 'mongodb://localhost:27017/') ,
+  databaseURI: (databaseUri || 'mongodb://localhost:27017/') + appName,
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: appId,
   masterKey: masterKey, //Add your master key here. Keep it secret!
