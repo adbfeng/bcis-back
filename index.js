@@ -14,7 +14,7 @@ var user = process.env.USERNAME || 'user12'
 var password = process.env.PASSWORD || 'pass2'
 var apiPath = process.env.PARSE_MOUNT || '/api';
 var allowInsecureHTTP = process.env.ALLOW_INSECURE_HTTP || true
-var appName = process.env.APP_NAME || "MyApp"
+var appName = process.env.APP_NAME || "BCIS"
 require('dotenv').config()
 var pay = require('./api/pay')
 
